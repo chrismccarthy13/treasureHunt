@@ -6,33 +6,31 @@ class Board extends Component{
     constructor(props){
         super(props)
         this.state = {
-            
             spaces: ['?', '?', '?', '?', '?', '?', '?', '?', '?'],
-            xIsNext: null,
+            clicked: false,
+            randomBomb: 1,
+            count: 0,
         }
     }
     
-    handleClick = (e) => {
-        const { spaces } = this.state.
-        form[e.target.spaces] = e.target.value
-        this.setState({ form })
-        // console.log("0")
-        // // if(spaces[0] === "?"){
-        //     return this.renderSquare()
+    handleClick(i) {
+        const spaces = this.state.spaces
+        const randomBomb = spaces[Math.floor(Math.random()*8)]
+        const randomTreasure = spaces[Math.floor(Math.random()*8)]
+        const count = this.state.count
         
-    }
-    // handleClick(i) {
-    //     const spaces = this.state.spaces.slice();
-    //     if( (spaces) || spaces['?']){
-    //         return this.renderSquare()}
-        // if ( calculateWinner(squares) || squares[i] ) {
-        //     return;
-        // }
-        // squares[i] = this.state.xIsNext ? 'X' : 'O';
-        // this.setState({
-        //     squares: squares,
-        //     xIsNext: !this.state.xIsNext,
-        // });
+        if(spaces[i] === randomBomb){
+            spaces[i] = '!';
+            this.setState({spaces: spaces});
+        } else if(spaces[i] === randomTreasure) {
+            spaces[i] = '#';
+            this.setState({spaces: spaces});
+        } else{
+            spaces[i] = "$";
+            this.setState({spaces: spaces});
+        }
+        
+        count: this.setState({ count: count + 1 })
     }
     
     renderSquare=(i)=>{
@@ -45,34 +43,31 @@ class Board extends Component{
     }
     
     render () {
-    //   const winner =
-    //   calculateWinner(this.state.squares);
-    //   let status;
-    //   if ( winner ) {
-    //       status = 'Winner' + winner;
-    //   } else {
-    //       status = 'Next player: ' + 
-    //      (this.state.xIsNext ? 'X' : 'O' );
-    //   }
-        
+    const status = 'Treasure Hunt: '
+    const count = this.setCount
+    
     return(
         <div className="board">
-            <div className="Status"></div>
-            <div className="board-row">
-                {this.renderSquare(0)}
-                {this.renderSquare(1)}
-                {this.renderSquare(2)}
-            </div>
-            <div className="board-row">
-                {this.renderSquare(3)}
-                {this.renderSquare(4)}
-                {this.renderSquare(5)}
-            </div>
-            <div className="board-row">
-                {this.renderSquare(6)}
-                {this.renderSquare(7)}
-                {this.renderSquare(8)}
-            </div>
+            <div className="status">{status}</div>
+            <table>
+                <tr>
+                    <td >{this.renderSquare(0)}</td>
+                    <td >{this.renderSquare(1)}</td>
+                    <td >{this.renderSquare(2)}</td>
+                </tr>
+                <tr>
+                    <td >{this.renderSquare(3)}</td>
+                    <td >{this.renderSquare(4)}</td>
+                    <td >{this.renderSquare(5)}</td>
+                </tr>
+                <tr>
+                    <td >{this.renderSquare(6)}</td>
+                    <td >{this.renderSquare(7)}</td>
+                    <td >{this.renderSquare(8)}</td>
+                </tr>
+            </table>
+            <br></br>
+            <div className="count">Turn Count: {this.state.count}</div>
         </div>
     );
  }   

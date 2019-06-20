@@ -18,11 +18,11 @@ import React, {Component} from 'react';
 import App from './App.js'
 import Board from './Board.js'
 
-function Square(props) {
+function Square (props) {
     return(
         <button 
         className="square" 
-        onClick={function() { alert('click'); }}>
+        onClick={props.onClick}>
             {props.value}
         </button>
     );
