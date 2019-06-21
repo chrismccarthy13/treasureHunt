@@ -2,31 +2,41 @@ import React, {Component} from 'react';
 import App from './App.js'
 import Square from './Square.js'
 
+// create a class that extends a component
+// create an array 
+// create random generator 
+// create a state for a bomb and treasure 
 class Board extends Component{
     constructor(props){
         super(props)
         this.state = {
             spaces: ['?', '?', '?', '?', '?', '?', '?', '?', '?'],
             clicked: false,
-            randomBomb: 1,
+            randomBomb: Math.floor(Math.random() * 8),
+            randomTreasure: Math.floor(Math.random() * 8),
             count: 0,
         }
+   
     }
+// handleClick for eaxh square     
     
     handleClick(i) {
+        const { randomBomb, randomTreasure } = this.state 
         const spaces = this.state.spaces
-        const randomBomb = spaces[Math.floor(Math.random()*8)]
-        const randomTreasure = spaces[Math.floor(Math.random()*8)]
         const count = this.state.count
-        
-        if(spaces[i] === randomBomb){
-            spaces[i] = '!';
+
+        if(i === randomBomb){
+            spaces[i] = 'Bomb';
             this.setState({spaces: spaces});
-        } else if(spaces[i] === randomTreasure) {
-            spaces[i] = '#';
-            this.setState({spaces: spaces});
-        } else{
-            spaces[i] = "$";
+            alert ('You lose!')
+            window.location.reload()
+        } else if(i === randomTreasure) {
+            spaces[i] = 'Treasure';
+            this.setState({spaces: spaces}); 
+            alert ('Winner!')
+            window.location.reload()
+        }else{
+            spaces[i] = "Tree";
             this.setState({spaces: spaces});
         }
         
@@ -42,9 +52,16 @@ class Board extends Component{
         )
     }
     
+    resetForm = () => {
+      this.setState({
+          ...this.state,
+          spaces: ['?', '?', '?', '?', '?', '?', '?', '?', '?'],
+      })
+      window.location.reload()
+    }
+    
     render () {
-    const status = 'Treasure Hunt: '
-    const count = this.setCount
+    let status = 'Treasure Hunt: '
     
     return(
         <div className="board">
@@ -68,6 +85,7 @@ class Board extends Component{
             </table>
             <br></br>
             <div className="count">Turn Count: {this.state.count}</div>
+            <button className="reset" onClick={this.resetForm}>Play Again</button>
         </div>
     );
  }   
