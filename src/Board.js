@@ -2,23 +2,24 @@ import React, {Component} from 'react';
 import App from './App.js'
 import Square from './Square.js'
 
-// create a class that extends a component
-// create an array 
-// create random generator 
-// create a state for a bomb and treasure 
+//Create a class that extends a component
+//Create a state for default spaces, a bomb, treasure, and click count 
+//Use random num generator as the state of bomb and treasure
+
 class Board extends Component{
     constructor(props){
         super(props)
         this.state = {
             spaces: ['?', '?', '?', '?', '?', '?', '?', '?', '?'],
-            clicked: false,
             randomBomb: Math.floor(Math.random() * 8),
             randomTreasure: Math.floor(Math.random() * 8),
-            count: 0,
+            count: 0
         }
    
     }
-// handleClick for eaxh square     
+//Create a method that will be called upon when clicked
+//When clicked it will determine the random value 
+//When each square is clicked it will increase turn count 
     
     handleClick(i) {
         const { randomBomb, randomTreasure } = this.state 
@@ -42,6 +43,10 @@ class Board extends Component{
         
         count: this.setState({ count: count + 1 })
     }
+    
+//Create a method that calls upon each square
+//The method will display the default state
+//When clicked it will call upon another method that will determine the hidden value
     
     renderSquare=(i)=>{
         return (
